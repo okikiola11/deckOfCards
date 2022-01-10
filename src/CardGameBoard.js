@@ -1,4 +1,5 @@
 import React from 'react';
+import { createNewDeckPlayerA, createNewDeckPlayerB } from './api';
 import { createNewDeck } from './api';
 import { CardLayout } from './LayoutComponents';
 
@@ -12,6 +13,10 @@ class CardGameBoard extends React.Component {
       deckId: null,
       startGameButton: true, // start button
       flipGameButton: false,  // flip button set to false, so it doesn't change
+      
+      PlayerBCardImageUrl: null,
+      PlayerBCardValue: null,
+      PlayerBDeckId: null,
     };
 
     this.startGame = this.startGame.bind(this);
@@ -29,11 +34,15 @@ class CardGameBoard extends React.Component {
   }
 
   async flipGame() {
-    const { deckId, value, image } = await createNewDeck();
-    this.setState({
+    const { deckId, value, image } = await createNewDeckPlayerA();
+    const { PlayerBDeckId, PlayerBCardValue, PlayerBCardImageUrl } = await createNewDeckPlayerB();
+    this.setState({...this.state,
       deckId,
       cardValue: value,
       cardImageUrl: image,
+      PlayerBDeckId,
+      PlayerBCardValue,
+      PlayerBCardImageUrl,
     });
     console.log(deckId, value, image);
   }
@@ -51,6 +60,9 @@ class CardGameBoard extends React.Component {
           <button onClick={this.flipGame}>Flip</button>
           <CardLayout>
             <img src={this.state.cardImageUrl} alt='Card Image' />
+          </CardLayout>
+          <CardLayout>
+            <img src={this.state.PlayerBCardImageUrl} alt='Player B Card Image' />
           </CardLayout>
         </div>   
       )
