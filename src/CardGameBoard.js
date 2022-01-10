@@ -28,6 +28,7 @@ class CardGameBoard extends React.Component {
     this.startGame = this.startGame.bind(this);
     this.flipGame = this.flipGame.bind(this);
     this.getWinner = this.getWinner.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   componentDidMount = () => {
@@ -89,6 +90,26 @@ class CardGameBoard extends React.Component {
 
   }
 
+  reset() {
+    this.setState({
+      cardImageUrl: null,
+      cardValue: null,
+      deckId: null,
+      startGameButton: true, // start button
+      flipGameButton: false,  // flip button set to false, so it doesn't change
+      
+      PlayerBCardImageUrl: null,
+      PlayerBCardValue: null,
+      PlayerBDeckId: null,
+
+      // score state
+      playerAScore: 0,
+      playerBScore: 0,
+      rounds: 5,
+      winner: null,
+    })
+  }
+
   render () {
     if (this.state.startGameButton) {
       return (
@@ -100,16 +121,16 @@ class CardGameBoard extends React.Component {
       return (
         <div>
           {(this.state.rounds > 0) && <button onClick={this.flipGame}>Flip</button>}
-          {(this.state.rounds <= 0) && <div>{this.getWinner()}</div>}
+          {(this.state.rounds <= 0) && <div>{this.getWinner()} <button onClick={this.reset}>Draw Cards</button></div>}
           <CardLayout>
-            <img src={this.state.cardImageUrl} alt='Card Image' />
+            <img src={this.state.cardImageUrl} alt='Player A Card Image' />
           </CardLayout>
           <CardLayout>
             <img src={this.state.PlayerBCardImageUrl} alt='Player B Card Image' />
           </CardLayout>
           <div>Player A's Score: {this.state.playerAScore} </div>
           <div>Player B's Score: {this.state.playerBScore}</div>
-        </div>   
+        </div>  
       )
     }
   }  
