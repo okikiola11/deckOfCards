@@ -22,10 +22,12 @@ class CardGameBoard extends React.Component {
       playerAScore: 0,
       playerBScore: 0,
       rounds: 5,
+      winner: null,
     };
 
     this.startGame = this.startGame.bind(this);
     this.flipGame = this.flipGame.bind(this);
+    this.getWinner = this.getWinner.bind(this);
   }
 
   componentDidMount = () => {
@@ -36,6 +38,19 @@ class CardGameBoard extends React.Component {
     this.setState(state => ({
       startGameButton: !state.startGameButton
     }))
+  }
+
+  getWinner() {
+    if (this.state.playerAScore > this.state.playerBScore) {
+      //this.setState({...this.state, winner: `Player A wins`});
+      return `Player A wins`;
+    } else if (this.state.playerBScore > this.state.playerAScore) {
+      //this.setState({...this.state, winner: `Player B wins`})
+      return `Player b wins`;
+    } else {
+      //this.setState({...this.state, winner: `It's a draw`})
+      return `It's a draw`;
+    }
   }
 
   async flipGame() {
@@ -57,7 +72,8 @@ class CardGameBoard extends React.Component {
 
     let playerARoundScore = this.state.playerAScore; 
     let playerBRoundScore = this.state.playerBScore;
-    
+    let nextRounds = this.state.rounds - 1;
+
     if (result > 0 ) {
       playerARoundScore += 1;
     } else if ( result < 0 ) {
@@ -68,6 +84,7 @@ class CardGameBoard extends React.Component {
     // copying all the states, modify the other values
     this.setState({...this.state, playerAScore: playerARoundScore, 
       playerBScore: playerBRoundScore,
+      rounds: nextRounds,
     });
 
   }
@@ -82,7 +99,8 @@ class CardGameBoard extends React.Component {
     } else {
       return (
         <div>
-          <button onClick={this.flipGame}>Flip</button>
+          {(this.state.rounds > 0) && <button onClick={this.flipGame}>Flip</button>}
+          {(this.state.rounds <= 0) && <div>{this.getWinner()}</div>}
           <CardLayout>
             <img src={this.state.cardImageUrl} alt='Card Image' />
           </CardLayout>
