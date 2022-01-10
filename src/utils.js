@@ -18,16 +18,11 @@ const compareValues = ({ value, PlayerBCardValue }) => {
   const playerACardValueIndex = cardValues[value];
   const playerBCardValueIndex = cardValues[PlayerBCardValue];
 
-  console.log(playerACardValueIndex);
-  console.log(playerBCardValueIndex);
   if(playerACardValueIndex > playerBCardValueIndex) {
-    console.log('player a wins this round');
     return 1;
   } else if (playerACardValueIndex < playerBCardValueIndex) {
-    console.log('player B wins this round');
     return -1;
   } else {
-    console.log('tie');
     return 0;
   }
 }

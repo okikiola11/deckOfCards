@@ -11,8 +11,8 @@ class CardGameBoard extends React.Component {
       cardImageUrl: null,
       cardValue: null,
       deckId: null,
-      startGameButton: true, // start button
-      flipGameButton: false,  // flip button set to false, so it doesn't change
+      startGameButton: true,
+      flipGameButton: false,
       
       PlayerBCardImageUrl: null,
       PlayerBCardValue: null,
@@ -31,7 +31,7 @@ class CardGameBoard extends React.Component {
     this.reset = this.reset.bind(this);
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     this.flipGame();
   }
 
@@ -43,13 +43,10 @@ class CardGameBoard extends React.Component {
 
   getWinner() {
     if (this.state.playerAScore > this.state.playerBScore) {
-      //this.setState({...this.state, winner: `Player A wins`});
       return `Player A wins`;
     } else if (this.state.playerBScore > this.state.playerAScore) {
-      //this.setState({...this.state, winner: `Player B wins`})
       return `Player b wins`;
     } else {
-      //this.setState({...this.state, winner: `It's a draw`})
       return `It's a draw`;
     }
   }
@@ -71,21 +68,17 @@ class CardGameBoard extends React.Component {
       PlayerBCardValue,
     });
 
-    let playerARoundScore = this.state.playerAScore; 
-    let playerBRoundScore = this.state.playerBScore;
-    let nextRounds = this.state.rounds - 1;
-
+    let playerARoundScore = this.state.playerAScore, playerBRoundScore = this.state.playerBScore;
+    let nextRounds = this.state.rounds - 1
     if (result > 0 ) {
       playerARoundScore += 1;
     } else if ( result < 0 ) {
       playerBRoundScore += 1;
     } else {}
 
-    // modify the state, the result and cardValue and image
-    // copying all the states, modify the other values
     this.setState({...this.state, playerAScore: playerARoundScore, 
       playerBScore: playerBRoundScore,
-      rounds: nextRounds,
+      rounds: nextRounds
     });
 
   }
@@ -95,14 +88,13 @@ class CardGameBoard extends React.Component {
       cardImageUrl: null,
       cardValue: null,
       deckId: null,
-      startGameButton: true, // start button
-      flipGameButton: false,  // flip button set to false, so it doesn't change
+      startGameButton: true,
+      flipGameButton: false,
       
       PlayerBCardImageUrl: null,
       PlayerBCardValue: null,
       PlayerBDeckId: null,
 
-      // score state
       playerAScore: 0,
       playerBScore: 0,
       rounds: 5,
@@ -121,7 +113,7 @@ class CardGameBoard extends React.Component {
       return (
         <div>
           {(this.state.rounds > 0) && <button onClick={this.flipGame}>Flip</button>}
-          {(this.state.rounds <= 0) && <div>{this.getWinner()} <button onClick={this.reset}>Draw Cards</button></div>}
+          {(this.state.rounds <= 0) && <div>{this.getWinner()} <button onClick={this.reset}>Play Again</button></div>}
           <CardLayout>
             <img src={this.state.cardImageUrl} alt='Player A Card Image' />
           </CardLayout>
@@ -130,8 +122,8 @@ class CardGameBoard extends React.Component {
           </CardLayout>
           <div>Player A's Score: {this.state.playerAScore} </div>
           <div>Player B's Score: {this.state.playerBScore}</div>
-        </div>  
-      )
+        </div>   
+     )
     }
   }  
 }
