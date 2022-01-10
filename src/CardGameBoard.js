@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNewDeckPlayerA, createNewDeckPlayerB } from './api';
-import { createNewDeck } from './api';
 import { CardLayout } from './LayoutComponents';
+import compareValues from './utils';
 
 class CardGameBoard extends React.Component {
   constructor(props) {
@@ -17,6 +17,11 @@ class CardGameBoard extends React.Component {
       PlayerBCardImageUrl: null,
       PlayerBCardValue: null,
       PlayerBDeckId: null,
+
+      // score state
+      playerAScore: 0,
+      playerBScore: 0,
+      rounds: 5,
     };
 
     this.startGame = this.startGame.bind(this);
@@ -44,7 +49,27 @@ class CardGameBoard extends React.Component {
       PlayerBCardValue,
       PlayerBCardImageUrl,
     });
-    console.log(deckId, value, image);
+
+    const result = compareValues({
+      value,
+      PlayerBCardValue,
+    });
+
+    let playerARoundScore = this.state.playerAScore; 
+    let playerBRoundScore = this.state.playerBScore;
+    
+    if (result > 0 ) {
+      playerARoundScore += 1;
+    } else if ( result < 0 ) {
+      playerBRoundScore += 1;
+    } else {}
+
+    // modify the state, the result and cardValue and image
+    // copying all the states, modify the other values
+    this.setState({...this.state, playerAScore: playerARoundScore, 
+      playerBScore: playerBRoundScore,
+    });
+
   }
 
   render () {
@@ -64,6 +89,8 @@ class CardGameBoard extends React.Component {
           <CardLayout>
             <img src={this.state.PlayerBCardImageUrl} alt='Player B Card Image' />
           </CardLayout>
+          <div>Player A's Score: {this.state.playerAScore} </div>
+          <div>Player B's Score: {this.state.playerBScore}</div>
         </div>   
       )
     }
