@@ -12,7 +12,7 @@ It updates the scores for both players and displays the winner.
 To get a copy up and running follow these simple example steps:-
 
 - Clone 
-[My Repository](https://github.com/okikiola11/deckofcards.git) to your local machine.
+[My Repository](https://github.com/okikiola11/deckOfCards.git) to your local machine.
 
 
 
@@ -34,7 +34,7 @@ To get a copy up and running follow these simple example steps:-
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/okikiola11/deckofcards/issues).
+Feel free to check the [issues page](https://github.com/okikiola11/deckOfCards/issues).
 
 ## Show your support
 
