@@ -1,7 +1,7 @@
 # DECKOFCARDS
 
 This project is a game that uses the deckOfCards API to fetch cards on the screen for 2 players.
-It updates the scores for both players and displays the winner on the screen.
+It updates the scores for both players and displays the winner. 
 
 ## Built With
 - React

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNewDeckPlayerA, createNewDeckPlayerB } from './api';
-import { CardLayout } from './LayoutComponents';
+import { CardLayout, Button, Name } from './LayoutComponents';
 import compareValues from './utils';
 
 class CardGameBoard extends React.Component {
@@ -18,7 +18,6 @@ class CardGameBoard extends React.Component {
       PlayerBCardValue: null,
       PlayerBDeckId: null,
 
-      // score state
       playerAScore: 0,
       playerBScore: 0,
       rounds: 5,
@@ -106,19 +105,23 @@ class CardGameBoard extends React.Component {
     if (this.state.startGameButton) {
       return (
         <div>
-          <button onClick={this.startGame}>Start Game</button>
+          <Button onClick={this.startGame}>Start Game</Button>
         </div>
       );
     } else {
       return (
         <div>
-          {(this.state.rounds > 0) && <button onClick={this.flipGame}>Flip</button>}
-          {(this.state.rounds <= 0) && <div>{this.getWinner()} <button onClick={this.reset}>Play Again</button></div>}
+          {(this.state.rounds > 0) && <Button flipButton onClick={this.flipGame}>Flip</Button>}
+          {(this.state.rounds <= 0) && <div>{this.getWinner()} <Button onClick={this.reset}>Draw Cards</Button></div>}
           <CardLayout>
-            <img src={this.state.cardImageUrl} alt='Player A Card Image' />
-          </CardLayout>
-          <CardLayout>
-            <img src={this.state.PlayerBCardImageUrl} alt='Player B Card Image' />
+            <div>
+              <Name>Player A</Name>
+              <img src={this.state.cardImageUrl} alt="" />
+            </div>
+            <div>
+              <Name>Player B</Name>
+              <img src={this.state.PlayerBCardImageUrl} alt="" />
+            </div>
           </CardLayout>
           <div>Player A's Score: {this.state.playerAScore} </div>
           <div>Player B's Score: {this.state.playerBScore}</div>
